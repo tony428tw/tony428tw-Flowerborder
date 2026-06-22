@@ -127,6 +127,7 @@
           <h2>希望輸出</h2>
           <div class="output-options">
             <label><input type="checkbox" name="outputs" value="植栽表" checked /> 植栽表</label>
+            <label><input type="checkbox" name="outputs" value="寫實照片" checked /> 寫實照片</label>
             <label><input type="checkbox" name="outputs" value="平面圖" checked /> 平面圖</label>
             <label><input type="checkbox" name="outputs" value="剖立面圖" checked /> 剖立面圖</label>
             <label><input type="checkbox" name="outputs" value="軸側圖" checked /> 軸側圖</label>
@@ -215,6 +216,13 @@
 
         <section class="tab-panel" id="prompts">
           <div class="prompt-grid">
+            <article class="prompt-card" data-output="寫實照片">
+              <div class="prompt-card-header">
+                <h3>寫實照片提示詞</h3>
+                <button class="copy-prompt-btn" type="button" data-copy-target="photoPrompt">複製提示詞</button>
+              </div>
+              <textarea id="photoPrompt" readonly></textarea>
+            </article>
             <article class="prompt-card" data-output="平面圖">
               <div class="prompt-card-header">
                 <h3>平面圖提示詞</h3>

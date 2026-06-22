@@ -31,7 +31,7 @@ const plants = [
 const els = {};
 const seasons = ["春", "夏", "秋", "冬"];
 const defaultValues = {};
-const visualOutputs = ["平面圖", "剖立面圖", "軸側圖", "專業分析海報"];
+const visualOutputs = ["寫實照片", "平面圖", "剖立面圖", "軸側圖", "專業分析海報"];
 let currentDesign = null;
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -40,7 +40,7 @@ document.addEventListener("DOMContentLoaded", () => {
     "colorMood", "heightLayer", "lowMaintenance", "wildlife", "taiwanRule", "bannedPlants",
     "generateBtn", "resetBtn", "exportCsvBtn", "copyAllBtn", "downloadBtn", "printBtn", "projectTitle",
     "plantCount", "maintenanceLevel", "seasonFocus", "riskCount", "strategyOutput",
-    "seasonTimeline", "plantTableBody", "plantAnalysis", "planPrompt", "sectionPrompt",
+    "seasonTimeline", "plantTableBody", "plantAnalysis", "photoPrompt", "planPrompt", "sectionPrompt",
     "axonPrompt", "posterPrompt", "checklistOutput", "toast"
   ].forEach((id) => { els[id] = document.getElementById(id); });
 
@@ -270,6 +270,7 @@ function renderAnalysis(design) {
 }
 
 function renderPrompts(design) {
+  els.photoPrompt.value = design.prompts.photo;
   els.planPrompt.value = design.prompts.plan;
   els.sectionPrompt.value = design.prompts.section;
   els.axonPrompt.value = design.prompts.axon;
@@ -308,6 +309,12 @@ function buildPrompts(brief, selected, strategy) {
 配置策略：${strategy.join("")}`;
 
   return {
+    photo: `根據以下植栽表，生成一張高品質寫實景觀花境照片。
+
+${base}
+
+畫面要求：
+真實景觀攝影質感，專業景觀設計完工照，植物品種清楚可辨識，前中後景層次分明，低矮地被在前景，中層灌木與草花形成色彩帶，背景以喬木或高灌木作為骨架。自然光線，細緻葉片、花序與枝條質感，真實土壤與覆蓋物，合理株距，符合台灣氣候條件，不出現不合理巨大花朵，不出現塑膠感，不出現錯誤文字。`,
     plan: `請根據以下植栽表生成一張專業景觀植栽配置平面圖。
 
 ${base}
@@ -479,6 +486,12 @@ ${design.strategy.map((item) => `- ${item}`).join("\n")}`];
 | 編號 | 中文名 | 學名 | 類型 | 高度 | 花色／花期 | 功能 | 注意事項 |
 | --- | --- | --- | --- | --- | --- | --- | --- |
 ${rows}`);
+  }
+
+  if (hasOutput(design, "寫實照片")) {
+    sections.push(`## 寫實照片提示詞
+
+${design.prompts.photo}`);
   }
 
   if (hasOutput(design, "平面圖")) {
