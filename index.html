@@ -1,0 +1,259 @@
+<!doctype html>
+<html lang="zh-Hant">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>花境設計小幫手 Flower Border Helper</title>
+    <link rel="stylesheet" href="assets/app.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <aside class="brief-panel" aria-label="設計需求輸入">
+        <div class="brand">
+          <div>
+            <p class="eyebrow">Flower Border Helper</p>
+            <h1>花境設計小幫手</h1>
+            <p class="designer-credit">Designed by Jerry Hsu</p>
+          </div>
+          <button class="icon-button" id="resetBtn" type="button" title="重設表單" aria-label="重設表單">↺</button>
+        </div>
+
+        <section class="form-section">
+          <h2>基地條件</h2>
+          <label>
+            基地位置（基地位置描述）
+            <input id="siteDescription" type="text" value="台灣校園入口花境" placeholder="例如：校園東側入口、住宅庭園南側花境" />
+          </label>
+          <label>
+            基地尺寸
+            <input id="siteSize" type="text" value="18m x 3m 線性花境" />
+          </label>
+          <div class="field-grid">
+            <label>
+              設計場域
+              <select id="siteType">
+                <option>校園花境</option>
+                <option>公園花境</option>
+                <option>住宅庭園</option>
+                <option>療癒庭園</option>
+                <option>商業空間</option>
+                <option>道路綠帶</option>
+                <option>水岸花境</option>
+              </select>
+            </label>
+            <label>
+              設計風格
+              <select id="designStyle">
+                <option>自然野趣風</option>
+                <option>英式花境</option>
+                <option>日式清雅風</option>
+                <option>熱帶度假風</option>
+                <option>現代極簡風</option>
+                <option>台灣原生植物風</option>
+                <option>高齡療癒花園風</option>
+              </select>
+            </label>
+          </div>
+          <div class="field-grid">
+            <label>
+              日照條件
+              <select id="sunlight">
+                <option>全日照</option>
+                <option>半日照</option>
+                <option>林下陰影</option>
+                <option>西曬強烈</option>
+                <option>濕地／水邊</option>
+              </select>
+            </label>
+            <label>
+              土壤與排水
+              <select id="soil">
+                <option>排水良好</option>
+                <option>一般壤土</option>
+                <option>黏重土壤</option>
+                <option>砂質土</option>
+                <option>潮濕低窪</option>
+              </select>
+            </label>
+          </div>
+        </section>
+
+        <section class="form-section">
+          <h2>視覺與維護</h2>
+          <div class="field-grid">
+            <label>
+              主要觀賞季節
+              <select id="season">
+                <option>四季</option>
+                <option>春</option>
+                <option>夏</option>
+                <option>秋</option>
+                <option>冬</option>
+              </select>
+            </label>
+            <label>
+              希望色系
+              <select id="colorMood">
+                <option>粉紫柔和</option>
+                <option>白綠清爽</option>
+                <option>黃橘熱情</option>
+                <option>紅色節慶</option>
+                <option>藍紫靜謐</option>
+                <option>四季混色</option>
+              </select>
+            </label>
+          </div>
+          <label>
+            植物高度層次
+            <select id="heightLayer">
+              <option>前低後高</option>
+              <option>中心高、邊緣低</option>
+              <option>低矮通透</option>
+              <option>背景圍合</option>
+            </select>
+          </label>
+          <div class="toggle-row">
+            <label class="toggle"><input id="lowMaintenance" type="checkbox" checked /> 低維護</label>
+            <label class="toggle"><input id="wildlife" type="checkbox" checked /> 誘蝶／蜜源／鳥類</label>
+            <label class="toggle"><input id="taiwanRule" type="checkbox" checked /> 需顧及台灣綠化規範</label>
+          </div>
+          <label>
+            禁用植物
+            <input id="bannedPlants" type="text" placeholder="例如：榕樹、海檬果、夾竹桃" />
+          </label>
+        </section>
+
+        <section class="form-section">
+          <h2>希望輸出</h2>
+          <div class="output-options">
+            <label><input type="checkbox" name="outputs" value="植栽表" checked /> 植栽表</label>
+            <label><input type="checkbox" name="outputs" value="平面圖" checked /> 平面圖</label>
+            <label><input type="checkbox" name="outputs" value="剖立面圖" checked /> 剖立面圖</label>
+            <label><input type="checkbox" name="outputs" value="軸側圖" checked /> 軸側圖</label>
+            <label><input type="checkbox" name="outputs" value="專業分析海報" checked /> 分析海報</label>
+          </div>
+          <button class="primary-button" id="generateBtn" type="button">產生花境方案</button>
+        </section>
+      </aside>
+
+      <section class="workspace" aria-label="設計輸出">
+        <header class="workspace-header">
+          <div>
+            <p class="eyebrow">Live Generator</p>
+            <h2 id="projectTitle">台灣校園入口花境</h2>
+          </div>
+          <div class="action-group">
+            <button id="copyAllBtn" type="button">複製全部</button>
+            <button id="downloadBtn" type="button">下載 Markdown</button>
+            <button id="printBtn" type="button">列印</button>
+          </div>
+        </header>
+
+        <nav class="tabs" aria-label="輸出頁籤">
+          <button class="tab active" data-tab="overview" type="button">總覽</button>
+          <button class="tab" data-tab="plants" type="button">植栽表</button>
+          <button class="tab" data-tab="prompts" type="button">圖片提示詞</button>
+          <button class="tab" data-tab="check" type="button">檢核</button>
+        </nav>
+
+        <section class="tab-panel active" id="overview">
+          <div class="summary-grid">
+            <article class="metric">
+              <span>植物種數</span>
+              <strong id="plantCount">0</strong>
+            </article>
+            <article class="metric">
+              <span>維護等級</span>
+              <strong id="maintenanceLevel">低</strong>
+            </article>
+            <article class="metric">
+              <span>主要花期</span>
+              <strong id="seasonFocus">四季</strong>
+            </article>
+            <article class="metric">
+              <span>安全提醒</span>
+              <strong id="riskCount">0</strong>
+            </article>
+          </div>
+
+          <div class="main-visual-grid">
+            <article class="strategy-block">
+              <h3>設計策略</h3>
+              <div id="strategyOutput"></div>
+            </article>
+          </div>
+
+          <article class="timeline-block">
+            <h3>四季花期與管理節奏</h3>
+            <div id="seasonTimeline" class="season-timeline"></div>
+          </article>
+        </section>
+
+        <section class="tab-panel" id="plants">
+          <div class="table-actions">
+            <button id="exportCsvBtn" type="button">匯出 CSV</button>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>編號</th>
+                  <th>中文名</th>
+                  <th>學名</th>
+                  <th>類型</th>
+                  <th>高度</th>
+                  <th>花色／花期</th>
+                  <th>功能</th>
+                  <th>注意事項</th>
+                </tr>
+              </thead>
+              <tbody id="plantTableBody"></tbody>
+            </table>
+          </div>
+          <div id="plantAnalysis" class="analysis-list"></div>
+        </section>
+
+        <section class="tab-panel" id="prompts">
+          <div class="prompt-grid">
+            <article class="prompt-card" data-output="平面圖">
+              <div class="prompt-card-header">
+                <h3>平面圖提示詞</h3>
+                <button class="copy-prompt-btn" type="button" data-copy-target="planPrompt">複製提示詞</button>
+              </div>
+              <textarea id="planPrompt" readonly></textarea>
+            </article>
+            <article class="prompt-card" data-output="剖立面圖">
+              <div class="prompt-card-header">
+                <h3>剖立面圖提示詞</h3>
+                <button class="copy-prompt-btn" type="button" data-copy-target="sectionPrompt">複製提示詞</button>
+              </div>
+              <textarea id="sectionPrompt" readonly></textarea>
+            </article>
+            <article class="prompt-card" data-output="軸側圖">
+              <div class="prompt-card-header">
+                <h3>軸側圖提示詞</h3>
+                <button class="copy-prompt-btn" type="button" data-copy-target="axonPrompt">複製提示詞</button>
+              </div>
+              <textarea id="axonPrompt" readonly></textarea>
+            </article>
+            <article class="prompt-card" data-output="專業分析海報">
+              <div class="prompt-card-header">
+                <h3>海報生成提示詞</h3>
+                <button class="copy-prompt-btn" type="button" data-copy-target="posterPrompt">複製提示詞</button>
+              </div>
+              <textarea id="posterPrompt" readonly></textarea>
+            </article>
+          </div>
+        </section>
+
+        <section class="tab-panel" id="check">
+          <div id="checklistOutput" class="checklist"></div>
+        </section>
+      </section>
+    </main>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+    <script src="assets/app.js"></script>
+  </body>
+</html>
