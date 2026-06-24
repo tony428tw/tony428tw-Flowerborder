@@ -3,40 +3,37 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>樹章戰鬥陀螺</title>
+    <title>姓名戰鬥陀螺</title>
     <link rel="stylesheet" href="styles.css">
   </head>
   <body>
     <main class="shell">
       <header class="topbar">
         <div class="brand">
-          <span class="brand-mark" aria-hidden="true"></span>
-          <div>
-            <p class="eyebrow">Tree Top View Battle</p>
-            <h1>樹章戰鬥陀螺</h1>
-          </div>
+          <span class="brand-mark"></span>
+          <h1>姓名戰鬥陀螺</h1>
         </div>
         <button class="ghost-button" id="recordsButton" type="button">上場紀錄</button>
       </header>
 
       <section class="setup-view" id="setupView">
-        <p class="hint" id="modeHint">雙方各輸入三個植物名稱，每個植物會長成一顆俯視樹章陀螺。三回合各派一種植物對決，先得兩勝的植物樹章最強。</p>
+        <div class="mode-row" role="tablist" aria-label="戰鬥模式">
+          <button class="mode-button active" id="nameModeButton" type="button">姓名對戰・三字三戰</button>
+          <button class="mode-button" id="singleModeButton" type="button">單字對戰</button>
+        </div>
+        <p class="hint" id="modeHint">雙方各輸入三個字的名字，每個字化為一顆陀螺。三回合各派一字對決，先得兩勝的名字最強。</p>
 
         <div class="setup-grid">
           <article class="player-card player-one">
-            <h2><span class="dot"></span>玩家一的植物隊</h2>
-            <textarea id="playerOneInput" class="plant-input" rows="3" aria-label="玩家一植物名稱">榕樹
-竹子
-櫻花</textarea>
-            <div class="plant-row" id="playerOnePreview"></div>
+            <h2><span class="dot"></span>玩家一</h2>
+            <input id="playerOneInput" class="name-input" maxlength="6" value="蔣萬安" aria-label="玩家一名字">
+            <div class="letter-row" id="playerOnePreview"></div>
           </article>
 
           <article class="player-card player-two">
-            <h2><span class="dot"></span>玩家二的植物隊</h2>
-            <textarea id="playerTwoInput" class="plant-input" rows="3" aria-label="玩家二植物名稱">松樹
-荷花
-楓樹</textarea>
-            <div class="plant-row" id="playerTwoPreview"></div>
+            <h2><span class="dot"></span>玩家二</h2>
+            <input id="playerTwoInput" class="name-input" maxlength="6" value="沈伯洋" aria-label="玩家二名字">
+            <div class="letter-row" id="playerTwoPreview"></div>
           </article>
         </div>
 
@@ -57,13 +54,13 @@
 
           <section class="arena-wrap">
             <div class="arena-stage">
-              <canvas id="arenaCanvas" width="720" height="720" aria-label="樹章戰鬥陀螺競技場"></canvas>
+              <canvas id="arenaCanvas" width="720" height="720" aria-label="戰鬥陀螺競技場"></canvas>
               <div class="round-overlay hidden" id="roundOverlay"></div>
             </div>
             <div class="battle-controls">
-              <button class="primary-button small hidden" id="nextRoundButton" type="button">下一回合</button>
+              <button class="primary-button small hidden" id="nextRoundButton" type="button">下一回合 ▶</button>
               <button class="primary-button small" id="rematchButton" type="button">重新對戰</button>
-              <button class="ghost-button small" id="backButton" type="button">回設定</button>
+              <button class="ghost-button small" id="backButton" type="button">← 回設定</button>
             </div>
             <div class="battle-log" id="battleLog"></div>
           </section>
